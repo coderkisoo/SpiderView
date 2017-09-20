@@ -28,6 +28,7 @@ public class SpiderView extends View {
     double radians = 0;
     int levelNum = 0;//层级数目
     float pointRadius = 0;//点半径
+    int powerColor = Color.GREEN;
 
     //自定义view中的paint
     Paint pointPaint;
@@ -48,6 +49,7 @@ public class SpiderView extends View {
             radius = typedArray.getDimension(R.styleable.SpiderView_radius, 0.0f);
             pointRadius = typedArray.getDimension(R.styleable.SpiderView_pointRadius, 0.0f);
             levelNum = typedArray.getInteger(R.styleable.SpiderView_levelNum, 0);
+            powerColor = typedArray.getColor(R.styleable.SpiderView_powerColor, powerColor);
         } finally {
             typedArray.recycle();
         }
@@ -64,16 +66,15 @@ public class SpiderView extends View {
 
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
-        linePaint.setStrokeWidth(3);
+        linePaint.setStrokeWidth(1);
         linePaint.setColor(Color.BLACK);
         linePaint.setStyle(Paint.Style.STROKE);
 
         powerPaint = new Paint();
-        powerPaint.setColor(Color.GREEN);
+        powerPaint.setColor(powerColor);
         powerPaint.setAntiAlias(true);
-        powerPaint.setAlpha(80);
-        powerPaint.setStrokeWidth(8);
-        powerPaint.setStyle(Paint.Style.FILL);
+        powerPaint.setStrokeWidth(4);
+        powerPaint.setStyle(Paint.Style.STROKE);
 
         for (int i = 0; i < pointNum; i++) {
             datas.add((float) Math.random());
@@ -84,22 +85,22 @@ public class SpiderView extends View {
      * 我们要画出来的是一个正n边形 n = {@link SpiderView#pointNum}
      * 要决定出一个圆形 宽度 高度必须相等
      */
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int widthMeasureMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthMeasureSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightMeasureMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightMeasureSize = MeasureSpec.getSize(heightMeasureSpec);
-        if (MeasureSpec.UNSPECIFIED == widthMeasureMode) {
-            widthMeasureSize = BACKGROUND_CIRCLE_MIN;
-        }
-        if (MeasureSpec.UNSPECIFIED == heightMeasureMode) {
-            heightMeasureSize = BACKGROUND_CIRCLE_MIN;
-        }
-        widthMeasureSize = Math.min(widthMeasureSize, heightMeasureSize);
-        setMeasuredDimension(getDefaultSize(widthMeasureSize, widthMeasureSpec),
-                getDefaultSize(widthMeasureSize, heightMeasureSpec));
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int widthMeasureMode = MeasureSpec.getMode(widthMeasureSpec);
+//        int widthMeasureSize = MeasureSpec.getSize(widthMeasureSpec);
+//        int heightMeasureMode = MeasureSpec.getMode(heightMeasureSpec);
+//        int heightMeasureSize = MeasureSpec.getSize(heightMeasureSpec);
+//        if (MeasureSpec.UNSPECIFIED == widthMeasureMode) {
+//            widthMeasureSize = BACKGROUND_CIRCLE_MIN;
+//        }
+//        if (MeasureSpec.UNSPECIFIED == heightMeasureMode) {
+//            heightMeasureSize = BACKGROUND_CIRCLE_MIN;
+//        }
+//        widthMeasureSize = Math.min(widthMeasureSize, heightMeasureSize);
+//        setMeasuredDimension(getDefaultSize(widthMeasureSize, widthMeasureSpec),
+//                getDefaultSize(widthMeasureSize, heightMeasureSpec));
+//    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {

@@ -5,6 +5,7 @@
         <attr name="radius" format="dimension" />
         <attr name="pointRadius" format="dimension" />
         <attr name="levelNum" format="integer" />
+        <attr name="powerColor" format="color" />
     </declare-styleable>
 
 </resources>
